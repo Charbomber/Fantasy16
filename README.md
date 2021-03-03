@@ -1,4 +1,4 @@
-![alt text](https://github.com/Charbomber/Fantasy16/blob/main/fantasy16/github/LogoBig.png?raw=true)
+![alt text](https://github.com/Charbomber/Fantasy16/blob/main/fantasy16/github/LogoBlackBig.png?raw=true)
 
 # Fantasy16
 A fantasy console based on the 16-bit era.
