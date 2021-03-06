@@ -25,50 +25,51 @@ spritesheet[1]={
 9,9,9,9,9,9,9,9
 }
 
-function pix(x,y,pal,col)
+function pix(x,y,pal,col,ignoretrans)
 
-  love.graphics.setColor(RGBtoDEC(palettes[pal][col]))
-
-  if not (col==1) then
-    local pointspots={{x*2, y*2}, {x*2+1, y*2}, {x*2, y*2+1}, {x*2+1, y*2+1}}
-    love.graphics.points(pointspots)
-  end
+	love.graphics.setColor(RGBtoDEC(palettes[pal][col]))
+	if ignoretrans==nil then ignoretrans=false end
+  
+	if (ignoretrans) or not (col==1) then
+		local pointspots={{x*2, y*2}, {x*2+1, y*2}, {x*2, y*2+1}, {x*2+1, y*2+1}}
+		love.graphics.points(pointspots)
+	end
 end
 
-function rect(x1,y1,x2,y2,fill,pal,col)
+function rect(x1,y1,x2,y2,fill,pal,col,ignoretrans)
 
   for i=0,x2-x1 do
-    pix(x1+i,y1,pal,col)
-    pix(x1+i,y2,pal,col)
+    pix(x1+i,y1,pal,col,ignoretrans)
+    pix(x1+i,y2,pal,col,ignoretrans)
   end
 
   for i=0,y2-y1 do
-    pix(x1,y1+i,pal,col)
-    pix(x2,y1+i,pal,col)
+    pix(x1,y1+i,pal,col,ignoretrans)
+    pix(x2,y1+i,pal,col,ignoretrans)
   end
 
   if (fill) then
     for y=1,y2-y1-1 do
       for x=1,x2-x1-1 do
 
-        pix(x+x1,y+y1,pal,col)
+        pix(x+x1,y+y1,pal,col,ignoretrans)
 
       end
     end
   end
 end
 
-function circ(x,y,r,pal,col)  -- WIP
+function circ(x,y,r,pal,col,ignoretrans)  -- WIP
       for i=0, 360 do
             angle = i
             x1 = r * cos(angle * math.pi / 180)
             y1 = r * sin(angle * math.pi / 180)
-            pix(math.floor(x + x1), math.floor(y + y1), pal, col)
+            pix(math.floor(x + x1), math.floor(y + y1), pal, col, ignoretrans)
       end
 end
 
 -- Thank you SO MUCH Wikipedia! EDIT: Fuck you SO MUCH Wikipedia!
-function line(x0t,y0t,x1,y1,pal,col) -- WIP
+function line(x0t,y0t,x1,y1,pal,col,ignoretrans) -- WIP
     local x0 = x0t
     local y0 = y0t
     local sx=0
@@ -79,7 +80,7 @@ function line(x0t,y0t,x1,y1,pal,col) -- WIP
     if (y0<y1) then sy=1 else sy=-1 end
     local err = dx+dy
     while (true) do
-        pix(x0, y0, pal, col)
+        pix(x0, y0, pal, col,ignoretrans)
         if (sx >= 0) and (sy >= 0) then
           if (x0 >= x1 and y0 >= y1) then break end
         elseif (sx <= 0) and (sy >= 0) then
@@ -114,7 +115,7 @@ end
 
 function bg(pal,col)
   local paltemp
-  if (pal > 8) then
+  if (pal > 4) then
     paltemp=1
   else
     paltemp=pal

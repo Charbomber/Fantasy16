@@ -32,3 +32,12 @@ function btn(btnp)
     return true
   end
 end
+
+function dbtn(btnp)
+	if (love.mouse.isDown(1)) and (bntp==1) then
+		return true
+	end
+	if (love.mouse.isDown(2)) and (bntp==2) then
+		return true
+	end
+end
